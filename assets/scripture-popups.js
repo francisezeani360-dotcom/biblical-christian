@@ -41,7 +41,7 @@ function linkReferences(root){
  }});
  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
  nodes.forEach(node=>{const text=node.nodeValue;refPattern.lastIndex=0;let match,last=0;const frag=document.createDocumentFragment();
-  while((match=refPattern.exec(text))){frag.append(document.createTextNode(text.slice(last,match.index)));const btn=document.createElement('button');btn.type='button';btn.className='scripture-link';btn.textContent=match[0];btn.setAttribute('aria-label','Read '+match[0]+' in a popup');btn.addEventListener('click',()=>openPassage(match[0]));frag.append(btn);last=match.index+match[0].length}
+  while((match=refPattern.exec(text))){const reference=match[0];frag.append(document.createTextNode(text.slice(last,match.index)));const btn=document.createElement('button');btn.type='button';btn.className='scripture-link';btn.textContent=reference;btn.setAttribute('aria-label','Read '+reference+' in a popup');btn.addEventListener('click',()=>openPassage(reference));frag.append(btn);last=match.index+reference.length}
   frag.append(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);
  });
 }

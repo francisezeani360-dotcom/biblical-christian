@@ -1,1 +1,84 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Search the Library — Biblical Christian</title><link rel="stylesheet" href="/assets/site.css"></head><body><header class="site-head"><a class="brand" href="/">✦ Biblical Christian</a><nav><a href="/about.html">About</a><a href="/resources.html">Resources</a><a href="/contact.html">Contact</a></nav></header><main class="reading"><p class="eyebrow">Find a subject</p><h1>Search the library</h1><label class="search-label" for="q">Search articles, topics and passages</label><input id="q" class="search-box" type="search" placeholder="Try “salvation”, “Trinity” or “Romans 8”" autocomplete="off"><p id="status" class="muted" aria-live="polite">Search across the published library.</p><div id="results" class="results"></div></main><footer>Rooted in Scripture. Grounded in truth. · <a href="/contact.html">Contact</a></footer><script src="/assets/library.js"></script><script>const q=document.getElementById('q'),out=document.getElementById('results'),status=document.getElementById('status');function render(){const term=q.value.trim().toLowerCase();const hits=LIBRARY.filter(a=>!term||(a.title+' '+a.description+' '+a.tags+' '+a.passages).toLowerCase().includes(term));status.textContent=term?hits.length+' result'+(hits.length===1?'':'s')+' found':'Showing all '+hits.length+' published resources';out.innerHTML=hits.map(a=>'<a class="result" href="'+a.url+'"><span class="eyebrow">'+a.category+'</span><h2>'+a.title+'</h2><p>'+a.description+'</p></a>').join('')||'<p class="empty">No matching resources yet. Try another word or browse the categories.</p>'}q.addEventListener('input',render);render();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b2a">
+<meta name="description" content="Search Biblical Christian studies by title, subject, doctrine, keyword or Scripture passage.">
+<title>Search the Library — Biblical Christian</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.search-tools{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:12px;margin-top:12px}
+.search-box,.category-filter{min-width:0;width:100%;padding:15px 16px;border:1px solid #d7d2c8;background:#fff;color:var(--ink);font:15px system-ui,sans-serif;border-radius:3px}
+.search-box:focus,.category-filter:focus{outline:2px solid var(--gold);outline-offset:2px}
+.search-help{font-size:13px;color:var(--muted);margin:10px 0 0}
+.results{margin-top:28px}.result{border-left:3px solid transparent;transition:border-color .18s,transform .18s}.result:hover,.result:focus-visible{border-left-color:var(--gold);transform:translateY(-1px);text-decoration:none}.result .result-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;color:#8b6d3e;font:700 10px system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase}.result .result-meta span+span:before{content:"·";margin-right:9px;color:#b6a17e}.result h2{font-size:25px}.result p{line-height:1.65}.result .matched{display:block;margin-top:9px;color:#8b6d3e;font-size:12px}.empty{padding:25px;background:#fff;border:1px solid var(--line);color:var(--muted)}
+@media(max-width:620px){.search-tools{grid-template-columns:1fr}.search-box,.category-filter{padding:14px}}
+</style>
+</head>
+<body>
+<header class="site-head">
+<a class="brand" href="/">✦ Biblical Christian</a>
+<nav aria-label="Main navigation"><a href="/">Home</a><a href="/about.html">About</a><a href="/resources.html">Resources</a><a href="/scripture-index.html">Scripture index</a><a href="/contact.html">Contact</a></nav>
+</header>
+<main class="reading">
+<p class="eyebrow">Find a subject</p>
+<h1>Search the library</h1>
+<p class="lead">Look across published studies by title, topic, doctrine, keyword or biblical passage.</p>
+<label class="search-label" for="q">Search articles, topics and passages</label>
+<div class="search-tools">
+<input id="q" class="search-box" type="search" placeholder="Try “salvation”, “Trinity” or “Romans 8”" autocomplete="off" aria-describedby="search-help">
+<select id="category" class="category-filter" aria-label="Filter by subject"><option value="">All subjects</option></select>
+</div>
+<p id="search-help" class="search-help">Search updates as you type. You can also filter by subject.</p>
+<p id="status" class="muted" aria-live="polite">Loading the published library…</p>
+<div id="results" class="results" aria-live="polite"></div>
+</main>
+<footer>Rooted in Scripture. Grounded in truth. · <a href="/scripture-index.html">Scripture index</a> · <a href="/contact.html">Contact</a></footer>
+<script src="/assets/library.js"></script>
+<script>
+(function(){
+ const q=document.getElementById('q'),category=document.getElementById('category'),out=document.getElementById('results'),status=document.getElementById('status');
+ const library=Array.isArray(window.LIBRARY)?window.LIBRARY:[];
+ [...new Set(library.map(a=>a.category))].sort().forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;category.append(option)});
+ const words=value=>value.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').match(/[a-z0-9]+/g)||[];
+ function distance(a,b){if(Math.abs(a.length-b.length)>1)return 2;let prev=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){const row=[i];for(let j=1;j<=b.length;j++)row[j]=Math.min(row[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=row;}return prev[b.length]}
+ function score(item,query){
+  const fields={title:words(item.title),description:words(item.description),tags:words(item.tags),passages:words(item.passages),category:words(item.category)};
+  const all=[...fields.title,...fields.description,...fields.tags,...fields.passages,...fields.category];
+  let total=0,matched=0;
+  for(const term of query){
+   let points=0;
+   if(fields.title.includes(term))points=12;
+   else if(fields.tags.includes(term))points=9;
+   else if(fields.passages.includes(term))points=8;
+   else if(fields.category.includes(term))points=7;
+   else if(fields.description.includes(term))points=5;
+   else if(all.some(w=>w.startsWith(term)&&term.length>=3))points=3;
+   else if(term.length>=5&&all.some(w=>distance(w,term)===1))points=1;
+   if(points){total+=points;matched++}
+  }
+  return {total,matched};
+ }
+ function render(){
+  const terms=words(q.value),chosen=category.value;
+  const hits=library.map(item=>({item,...score(item,terms)}))
+   .filter(x=>(!chosen||x.item.category===chosen)&&(!terms.length||x.matched>0))
+   .sort((a,b)=>b.matched-a.matched||b.total-a.total||a.item.title.localeCompare(b.item.title));
+  status.textContent=terms.length||chosen?hits.length+' matching '+(hits.length===1?'resource':'resources')+' found':'Showing all '+hits.length+' published resources';
+  out.replaceChildren();
+  if(!hits.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='No matching resources yet. Try a different word, check the spelling, or choose another subject.';out.append(empty);return}
+  hits.forEach(({item,matched})=>{
+   const a=document.createElement('a');a.className='result';a.href=item.url;
+   const meta=document.createElement('div');meta.className='result-meta';
+   [item.category].forEach(value=>{const span=document.createElement('span');span.textContent=value;meta.append(span)});
+   const h=document.createElement('h2');h.textContent=item.title;
+   const p=document.createElement('p');p.textContent=item.description;
+   const ref=document.createElement('span');ref.className='matched';ref.textContent='Scripture: '+item.passages;
+   a.append(meta,h,p,ref);out.append(a);
+  });
+ }
+ q.addEventListener('input',render);category.addEventListener('change',render);render();
+})();
+</script>
+</body></html>

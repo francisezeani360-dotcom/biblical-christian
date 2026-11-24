@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 const book='(?:Genesis|Exodus|Leviticus|Numbers|Deuteronomy|Joshua|Judges|Ruth|1\\s*Samuel|2\\s*Samuel|1\\s*Kings|2\\s*Kings|1\\s*Chronicles|2\\s*Chronicles|Ezra|Nehemiah|Esther|Job|Psalms?|Proverbs|Ecclesiastes|Song of Solomon|Song of Songs|Isaiah|Jeremiah|Lamentations|Ezekiel|Daniel|Hosea|Joel|Amos|Obadiah|Jonah|Micah|Nahum|Habakkuk|Zephaniah|Haggai|Zechariah|Malachi|Matthew|Mark|Luke|John|Acts|Romans|1\\s*Corinthians|2\\s*Corinthians|Galatians|Ephesians|Philippians|Colossians|1\\s*Thessalonians|2\\s*Thessalonians|1\\s*Timothy|2\\s*Timothy|Titus|Philemon|Hebrews|James|1\\s*Peter|2\\s*Peter|1\\s*John|2\\s*John|3\\s*John|Jude|Revelation)';
-const refPattern=new RegExp('\\b('+book+')\\s+\\d{1,3}:\\d{1,3}(?:\\s*[-–—,]\\s*\\d{1,3}(?::\\d{1,3})?)*(?:\\s*;\\s*\\d{1,3}:\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)?','gi');
+const refPattern=new RegExp('\\b('+book+')\\s+\\d{1,3}(?:\\s*:\\s*\\d{1,3}(?:\\s*[-–—,]\\s*\\d{1,3}(?::\\d{1,3})?)*)?(?:\\s*;\\s*\\d{1,3}(?:\\s*:\\s*\\d{1,3}(?:\\s*[-–—,]\\s*\\d{1,3})?)?)*','gi');
 const excluded='SCRIPT, STYLE, NOSCRIPT, TEXTAREA, INPUT, BUTTON, A, .scripture-modal, .scripture-link';
 function makeModal(){
  let modal=document.createElement('div');modal.className='scripture-modal';modal.setAttribute('aria-hidden','true');

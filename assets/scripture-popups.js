@@ -4,10 +4,9 @@ const book='(?:Genesis|Gen\\.?|Exodus|Exod?\\.?|Leviticus|Lev\\.?|Numbers|Num\\.
 const refPattern=new RegExp('\\b('+book+')\\s+\\d{1,3}(?:\\s*:\\s*\\d{1,3}(?:\\s*[-–—,]\\s*\\d{1,3}(?::\\d{1,3})?)*)?(?:\\s*;\\s*\\d{1,3}(?:\\s*:\\s*\\d{1,3}(?:\\s*[-–—,]\\s*\\d{1,3})?)?)*','gi');
 const excluded='SCRIPT, STYLE, NOSCRIPT, TEXTAREA, INPUT, BUTTON, A, .scripture-modal, .scripture-link';
 function makeModal(){
- const previousFocus=document.activeElement;
  let modal=document.createElement('div');modal.className='scripture-modal';modal.setAttribute('aria-hidden','true');
  modal.innerHTML='<section class="scripture-dialog" role="dialog" aria-modal="true" aria-labelledby="scripture-title"><button class="scripture-close" type="button" aria-label="Close Scripture popup">×</button><h2 id="scripture-title">Bible passage</h2><div class="scripture-version">English Standard Version (ESV)</div><div class="scripture-content"><p class="scripture-loading">Loading passage…</p></div><div class="scripture-hint">Tap outside this window or press Escape to close.</div></section>';
- document.body.appendChild(modal);const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');if(previousFocus&&previousFocus.isConnected)previousFocus.focus()};
+ document.body.appendChild(modal);const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');const trigger=modal.__trigger;if(trigger&&trigger.isConnected)trigger.focus()};
  modal.querySelector('.scripture-close').addEventListener('click',close);
  modal.addEventListener('click',e=>{if(e.target===modal)close()});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('is-open'))close()});
@@ -17,12 +16,12 @@ function normalize(ref){
  const clean=ref.replace(/[–—]/g,'-').replace(/\s+/g,' ').trim().replace(/\.$/,'');
  const match=clean.match(/^(.+?)\s+(\d.*)$/);if(!match)return clean;
  const key=match[1].toLowerCase().replace(/\./g,'').replace(/\s+/g,' ');
- const aliases={'gen':'Genesis','ex':'Exodus','exo':'Exodus','exod':'Exodus','lev':'Leviticus','num':'Numbers','deut':'Deuteronomy','josh':'Joshua','judg':'Judges','1 sam':'1 Samuel','2 sam':'2 Samuel','1 kg':'1 Kings','1 kgs':'1 Kings','2 kg':'2 Kings','2 kgs':'2 Kings','1 chron':'1 Chronicles','2 chron':'2 Chronicles','neh':'Nehemiah','est':'Esther','ps':'Psalms','prov':'Proverbs','eccl':'Ecclesiastes','song':'Song of Solomon','isa':'Isaiah','jer':'Jeremiah','lam':'Lamentations','ezek':'Ezekiel','dan':'Daniel','hos':'Hosea','obad':'Obadiah','hab':'Habakkuk','zeph':'Zephaniah','hag':'Haggai','zech':'Zechariah','mal':'Malachi','matt':'Matthew','mt':'Matthew','mk':'Mark','lk':'Luke','jn':'John','rom':'Romans','1 cor':'1 Corinthians','2 cor':'2 Corinthians','gal':'Galatians','eph':'Ephesians','phil':'Philippians','col':'Colossians','1 thess':'1 Thessalonians','2 thess':'2 Thessalonians','1 tim':'1 Timothy','2 tim':'2 Timothy','tit':'Titus','philem':'Philemon','heb':'Hebrews','jas':'James','1 pet':'1 Peter','2 pet':'2 Peter','1 jn':'1 John','2 jn':'2 John','3 jn':'3 John','rev':'Revelation'};
+ const aliases={'gen':'Genesis','ex':'Exodus','exo':'Exodus','exod':'Exodus','lev':'Leviticus','num':'Numbers','deu':'Deuteronomy','deut':'Deuteronomy','josh':'Joshua','jud':'Judges','judg':'Judges','1 sam':'1 Samuel','2 sam':'2 Samuel','1 kg':'1 Kings','1 kgs':'1 Kings','2 kg':'2 Kings','2 kgs':'2 Kings','1 chron':'1 Chronicles','2 chron':'2 Chronicles','neh':'Nehemiah','est':'Esther','ps':'Psalms','prov':'Proverbs','eccl':'Ecclesiastes','song':'Song of Solomon','isa':'Isaiah','jer':'Jeremiah','lam':'Lamentations','ezek':'Ezekiel','dan':'Daniel','hos':'Hosea','obad':'Obadiah','hab':'Habakkuk','zeph':'Zephaniah','hag':'Haggai','zech':'Zechariah','mal':'Malachi','matt':'Matthew','mat':'Matthew','mt':'Matthew','mk':'Mark','lk':'Luke','jn':'John','rom':'Romans','1 cor':'1 Corinthians','2 cor':'2 Corinthians','gal':'Galatians','eph':'Ephesians','phil':'Philippians','col':'Colossians','1 thess':'1 Thessalonians','2 thess':'2 Thessalonians','1 tim':'1 Timothy','2 tim':'2 Timothy','tit':'Titus','philem':'Philemon','heb':'Hebrews','jas':'James','1 pet':'1 Peter','2 pet':'2 Peter','1 jn':'1 John','2 jn':'2 John','3 jn':'3 John','rev':'Revelation'};
  return (aliases[key]||match[1].replace(/\./g,''))+' '+match[2];
 }
 function openPassage(ref){
  const {modal}=window.__scripturePopup;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
- title.textContent=ref;content.innerHTML='<p class="scripture-loading">Loading the ESV passage…</p>';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
+ modal.__trigger=document.activeElement;title.textContent=ref;content.innerHTML='<p class="scripture-loading">Loading the ESV passage…</p>';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
  const query=encodeURIComponent(normalize(ref));
  fetch('https://biblical-christian-esv.onrender.com/api/passage?reference='+query)
  .then(async r=>{const data=await r.json();if(!r.ok)throw new Error(data.error||'Passage could not be loaded');return data})

@@ -60,7 +60,15 @@ const server = http.createServer(async (req, res) => {
       signal: AbortSignal.timeout(12000)
     });
     if (!upstream.ok) {
-      return send(res, upstream.status === 429 ? 429 : 502, { error: 'The ESV service could not return that passage. Please try again.' });
+      const upstreamBody = await upstream.text();
+      // Log only the upstream status and a short error body; never log the API key.
+      console.error('ESV upstream error:', upstream.status, upstreamBody.slice(0, 500));
+      const message = upstream.status === 401 || upstream.status === 403
+        ? 'The ESV API rejected the server key. Please check that the key is active and correctly saved in Render.'
+        : upstream.status === 429
+          ? 'The ESV API rate limit was reached. Please wait a moment and try again.'
+          : 'The ESV service could not return that passage (HTTP ' + upstream.status + '). Please try again.';
+      return send(res, upstream.status === 429 ? 429 : 502, { error: message, upstreamStatus: upstream.status });
     }
     const data = await upstream.json();
     if (!Array.isArray(data.passages) || !data.passages.length) {

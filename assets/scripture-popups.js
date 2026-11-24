@@ -15,11 +15,22 @@ function makeModal(){
 function normalize(ref){return ref.replace(/[–—]/g,'-').replace(/\s+/g,' ').trim()}
 function openPassage(ref){
  const {modal}=window.__scripturePopup;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
- title.textContent=ref;content.innerHTML='';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
- const p=document.createElement('p');p.className='scripture-error';p.textContent='The ESV passage service is being connected. For now, open the exact passage directly in the English Standard Version.';
- const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+encodeURIComponent(normalize(ref)).replace(/%20/g,'+')+'/';link.target='_blank';link.rel='noopener';link.textContent='Read '+ref+' in the ESV ↗';
- const credit=document.createElement('p');credit.className='scripture-hint';credit.textContent='ESV® Bible text © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.';
- content.replaceChildren(p,link,credit);
+ title.textContent=ref;content.innerHTML='<p class="scripture-loading">Loading the ESV passage…</p>';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
+ const query=encodeURIComponent(normalize(ref));
+ fetch('https://biblical-christian-esv.onrender.com/api/passage?reference='+query)
+ .then(async r=>{const data=await r.json();if(!r.ok)throw new Error(data.error||'Passage could not be loaded');return data})
+ .then(data=>{
+  const fragment=document.createDocumentFragment();
+  (data.passages||[]).forEach(text=>{const p=document.createElement('p');p.className='scripture-text';p.textContent=text.trim();fragment.appendChild(p)});
+  content.replaceChildren(fragment);
+  const credit=document.createElement('p');credit.className='scripture-hint';credit.textContent='Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.';
+  content.appendChild(credit);
+  const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+encodeURIComponent(normalize(ref)).replace(/%20/g,'+')+'/';link.target='_blank';link.rel='noopener';link.textContent='Open '+(data.reference||ref)+' on ESV.org ↗';content.appendChild(link);
+ })
+ .catch(error=>{
+  const p=document.createElement('p');p.className='scripture-error';p.textContent=error.message||'The ESV passage could not be loaded right now.';
+  const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+query+'/';link.target='_blank';link.rel='noopener';link.textContent='Read '+ref+' on ESV.org ↗';content.replaceChildren(p,link);
+ });
 }
 function linkReferences(root){
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){

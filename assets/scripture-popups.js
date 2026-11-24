@@ -5,7 +5,7 @@ const refPattern=new RegExp('\\b('+book+')\\s+\\d{1,3}:\\d{1,3}(?:\\s*[-–—,]
 const excluded='SCRIPT STYLE NOSCRIPT TEXTAREA INPUT BUTTON A .scripture-modal .scripture-link';
 function makeModal(){
  let modal=document.createElement('div');modal.className='scripture-modal';modal.setAttribute('aria-hidden','true');
- modal.innerHTML='<section class="scripture-dialog" role="dialog" aria-modal="true" aria-labelledby="scripture-title"><button class="scripture-close" type="button" aria-label="Close Scripture popup">×</button><h2 id="scripture-title">Bible passage</h2><div class="scripture-version">World English Bible (WEB)</div><div class="scripture-content"><p class="scripture-loading">Loading passage…</p></div><div class="scripture-hint">Tap outside this window or press Escape to close.</div></section>';
+ modal.innerHTML='<section class="scripture-dialog" role="dialog" aria-modal="true" aria-labelledby="scripture-title"><button class="scripture-close" type="button" aria-label="Close Scripture popup">×</button><h2 id="scripture-title">Bible passage</h2><div class="scripture-version">English Standard Version (ESV)</div><div class="scripture-content"><p class="scripture-loading">Loading passage…</p></div><div class="scripture-hint">Tap outside this window or press Escape to close.</div></section>';
  document.body.appendChild(modal);const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true')};
  modal.querySelector('.scripture-close').addEventListener('click',close);
  modal.addEventListener('click',e=>{if(e.target===modal)close()});
@@ -14,13 +14,12 @@ function makeModal(){
 }
 function normalize(ref){return ref.replace(/[–—]/g,'-').replace(/\s+/g,' ').trim()}
 function openPassage(ref){
- const {modal,close}=window.__scripturePopup;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
- title.textContent=ref;content.innerHTML='<p class="scripture-loading">Loading passage…</p>';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
- const query=encodeURIComponent(normalize(ref));
- fetch('https://bible-api.com/'+query+'?translation=web')
- .then(r=>{if(!r.ok)throw new Error('Passage could not be loaded');return r.json()})
- .then(data=>{if(!data.text)throw new Error('No passage text returned');const p=document.createElement('p');p.className='scripture-text';p.textContent=data.text.trim();content.replaceChildren(p);const link=document.createElement('a');link.className='scripture-source';link.href='https://www.biblegateway.com/passage/?search='+encodeURIComponent(normalize(ref))+'&version=WEB';link.target='_blank';link.rel='noopener';link.textContent='Open passage in BibleGateway ↗';content.appendChild(link)})
- .catch(()=>{const p=document.createElement('p');p.className='scripture-error';p.textContent='The passage could not be loaded right now. Please check your internet connection or open it directly.';const link=document.createElement('a');link.className='scripture-source';link.href='https://www.biblegateway.com/passage/?search='+query+'&version=WEB';link.target='_blank';link.rel='noopener';link.textContent='Read '+ref+' online ↗';content.replaceChildren(p,link)});
+ const {modal}=window.__scripturePopup;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
+ title.textContent=ref;content.innerHTML='';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
+ const p=document.createElement('p');p.className='scripture-error';p.textContent='The ESV passage service is being connected. For now, open the exact passage directly in the English Standard Version.';
+ const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+encodeURIComponent(normalize(ref)).replace(/%20/g,'+')+'/';link.target='_blank';link.rel='noopener';link.textContent='Read '+ref+' in the ESV ↗';
+ const credit=document.createElement('p');credit.className='scripture-hint';credit.textContent='ESV® Bible text © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.';
+ content.replaceChildren(p,link,credit);
 }
 function linkReferences(root){
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){

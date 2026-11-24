@@ -36,6 +36,7 @@ function linkReferences(root){
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){
   if(!node.nodeValue||!node.nodeValue.trim())return NodeFilter.FILTER_REJECT;
   const parent=node.parentElement;if(!parent||parent.closest(excluded))return NodeFilter.FILTER_REJECT;
+  refPattern.lastIndex=0;
   return refPattern.test(node.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
  }});
  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);

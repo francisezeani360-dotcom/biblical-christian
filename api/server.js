@@ -59,7 +59,7 @@ const server = http.createServer(async (req, res) => {
       if (body.website) return send(res, 200, { ok: true });
       const name = String(body.name || '').trim().slice(0, 100);
       const email = String(body.email || '').trim().slice(0, 254);
-      const subject = String(body.subject || 'General enquiry').trim().replace(/[\\r\\n]+/g, ' ').slice(0, 120);
+      const subject = String(body.subject || 'General enquiry').trim().replace(/[\r\n]+/g, ' ').slice(0, 120);
       const message = String(body.message || '').trim().slice(0, 5000);
       if (!name || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 10) {
         return send(res, 400, { error: 'Please provide a valid name, email address and a message of at least 10 characters.' });

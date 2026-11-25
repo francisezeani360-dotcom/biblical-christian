@@ -6,7 +6,7 @@ const excluded='SCRIPT, STYLE, NOSCRIPT, TEXTAREA, INPUT, BUTTON, A, .scripture-
 function makeModal(){
  let modal=document.createElement('div');modal.className='scripture-modal';modal.setAttribute('aria-hidden','true');
  modal.innerHTML='<section class="scripture-dialog" role="dialog" aria-modal="true" aria-labelledby="scripture-title"><button class="scripture-close" type="button" aria-label="Close Scripture popup">×</button><h2 id="scripture-title">Bible passage</h2><div class="scripture-version">English Standard Version (ESV)</div><div class="scripture-content"><p class="scripture-loading">Loading passage…</p></div><div class="scripture-hint">Tap outside this window or press Escape to close.</div></section>';
- document.body.appendChild(modal);const close=()=>{modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=modal.__previousOverflow||'';const trigger=modal.__trigger;if(trigger&&trigger.isConnected)trigger.focus()};
+ document.body.appendChild(modal);const close=()=>{if(modal.__requestController)modal.__requestController.abort();modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=modal.__previousOverflow||'';const trigger=modal.__trigger;if(trigger&&trigger.isConnected)trigger.focus()};
  modal.querySelector('.scripture-close').addEventListener('click',close);
  modal.addEventListener('click',e=>{if(e.target===modal)close()});
  document.addEventListener('keydown',e=>{if(!modal.classList.contains('is-open'))return;if(e.key==='Escape'){close();return}if(e.key==='Tab'){const items=[...modal.querySelectorAll('button:not([disabled]),a[href], [tabindex]:not([tabindex="-1"])')].filter(el=>el.offsetParent!==null);if(!items.length)return;const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
@@ -20,12 +20,15 @@ function normalize(ref){
  return (aliases[key]||match[1].replace(/\./g,''))+' '+match[2];
 }
 function openPassage(ref){
- const {modal}=window.__scripturePopup;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
+ const {modal}=window.__scripturePopup;
+ if(modal.__requestController)modal.__requestController.abort();
+ const controller=new AbortController();modal.__requestController=controller;const title=modal.querySelector('#scripture-title');const content=modal.querySelector('.scripture-content');
  modal.__trigger=document.activeElement;modal.__previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';title.textContent=ref;content.innerHTML='<p class="scripture-loading">Loading the ESV passage…</p>';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('.scripture-close').focus();
  const query=encodeURIComponent(normalize(ref));
- fetch('https://biblical-christian-esv.onrender.com/api/passage?reference='+query)
+ fetch('https://biblical-christian-esv.onrender.com/api/passage?reference='+query,{signal:controller.signal})
  .then(async r=>{const data=await r.json();if(!r.ok)throw new Error(data.error||'Passage could not be loaded');return data})
  .then(data=>{
+  if(controller.signal.aborted||modal.__requestController!==controller)return;
   const fragment=document.createDocumentFragment();
   (data.passages||[]).forEach(text=>{const p=document.createElement('p');p.className='scripture-text';p.textContent=text.trim();fragment.appendChild(p)});
   content.replaceChildren(fragment);
@@ -34,6 +37,7 @@ function openPassage(ref){
   const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+encodeURIComponent(normalize(ref)).replace(/%20/g,'+')+'/';link.target='_blank';link.rel='noopener';link.textContent='Open '+(data.reference||ref)+' on ESV.org ↗';content.appendChild(link);
  })
  .catch(error=>{
+  if(error.name==='AbortError'||modal.__requestController!==controller)return;
   const p=document.createElement('p');p.className='scripture-error';p.textContent=error.message||'The ESV passage could not be loaded right now.';
   const link=document.createElement('a');link.className='scripture-source';link.href='https://www.esv.org/'+query+'/';link.target='_blank';link.rel='noopener';link.textContent='Read '+ref+' on ESV.org ↗';content.replaceChildren(p,link);
  });

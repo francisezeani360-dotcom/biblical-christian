@@ -8,4 +8,29 @@
 <meta property="og:url" content="https://biblical-christian.onrender.com/scripture-index.html">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scripture Index — Biblical Christian">
-<meta name="twitter:description" content="Browse Biblical Christian articles by the Scripture passages they discuss, from Genesis to Revelation."><link rel="stylesheet" href="/assets/site.css"></head><body><header class="site-head"><a class="brand" href="/">✦ Biblical Christian</a><nav><a href="/search.html">Search</a><a href="/resources.html">Resources</a><a href="/contact.html">Contact</a></nav></header><main class="reading"><p class="eyebrow">Explore by passage</p><h1>Scripture Index</h1><p class="lead">A starting point for finding studies connected with passages of Scripture. References are grouped by the passages explicitly discussed in our published articles; this index will grow as the library grows.</p><div id="passages" class="passage-list"></div></main><footer><a href="/about.html">About</a> · <a href="/scripture-copyright.html">Scripture copyright</a> · <a href="/contact.html">Contact</a></footer><script src="/assets/library.js"></script><script>const groups={};LIBRARY.forEach(a=>a.passages.split(';').forEach(p=>{p=p.trim();if(p)(groups[p]??=[]).push(a)}));document.getElementById('passages').innerHTML=Object.keys(groups).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(p=>'<section class="passage"><h2>'+p+'</h2>'+groups[p].map(a=>'<a href="'+a.url+'">'+a.title+' →</a>').join('')+'</section>').join('');</script></body></html>
+<meta name="twitter:description" content="Browse Biblical Christian articles by the Scripture passages they discuss, from Genesis to Revelation."><link rel="stylesheet" href="/assets/site.css"></head><body><header class="site-head"><a class="brand" href="/">✦ Biblical Christian</a><nav><a href="/search.html">Search</a><a href="/resources.html">Resources</a><a href="/contact.html">Contact</a></nav></header><main class="reading"><p class="eyebrow">Explore by passage</p><h1>Scripture Index</h1><p class="lead">A starting point for finding studies connected with passages of Scripture. References are grouped by the passages explicitly discussed in our published articles; this index will grow as the library grows.</p><div id="passages" class="passage-list"></div></main><footer><a href="/about.html">About</a> · <a href="/scripture-copyright.html">Scripture copyright</a> · <a href="/contact.html">Contact</a></footer><script src="/assets/library.js"></script><script>
+const groups = {};
+LIBRARY.forEach(article => {
+  (article.passages || "").split(";").forEach(reference => {
+    const passage = reference.trim();
+    if (passage) (groups[passage] ??= []).push(article);
+  });
+});
+const container = document.getElementById("passages");
+Object.keys(groups)
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .forEach(passage => {
+    const section = document.createElement("section");
+    section.className = "passage";
+    const heading = document.createElement("h2");
+    heading.textContent = passage;
+    section.appendChild(heading);
+    groups[passage].forEach(article => {
+      const link = document.createElement("a");
+      link.href = article.url;
+      link.textContent = article.title + " →";
+      section.appendChild(link);
+    });
+    container.appendChild(section);
+  });
+</script></body></html>

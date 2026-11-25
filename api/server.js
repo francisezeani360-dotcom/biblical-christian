@@ -61,7 +61,7 @@ const server = http.createServer(async (req, res) => {
       const email = String(body.email || '').trim().slice(0, 254);
       const subject = String(body.subject || 'General enquiry').trim().replace(/[\\r\\n]+/g, ' ').slice(0, 120);
       const message = String(body.message || '').trim().slice(0, 5000);
-      if (!name || !email || !message || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || message.length < 10) {
+      if (!name || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 10) {
         return send(res, 400, { error: 'Please provide a valid name, email address and a message of at least 10 characters.' });
       }
 
@@ -73,7 +73,7 @@ const server = http.createServer(async (req, res) => {
           to: [CONTACT_TO_EMAIL],
           reply_to: email,
           subject: '[Biblical Christian] ' + subject,
-          text: 'Name: ' + name + '\\nEmail: ' + email + '\\nSubject: ' + subject + '\\n\\n' + message
+          text: 'Name: ' + name + '\nEmail: ' + email + '\nSubject: ' + subject + '\n\n' + message
         }),
         signal: AbortSignal.timeout(12000)
       });

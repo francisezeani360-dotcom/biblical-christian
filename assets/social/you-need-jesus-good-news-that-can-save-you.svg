@@ -1,1 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071b2b"/><stop offset="1" stop-color="#17464b"/></linearGradient></defs><rect width="1200" height="630" fill="url(#bg)"/><rect x="48" y="44" width="1104" height="542" rx="18" fill="none" stroke="#bd9b67" stroke-opacity=".65" stroke-width="2"/><path d="M88 112h82" stroke="#d7b77d" stroke-width="7"/><text x="88" y="164" fill="#d7b77d" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="4">BIBLICAL CHRISTIAN</text><text x="88" y="282" fill="#fffdf6" font-family="Georgia,serif" font-size="64" font-weight="bold">You Need Jesus</text><foreignObject x="88" y="322" width="760" height="120"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,sans-serif;color:#c9d8d8;font-size:29px;line-height:1.35">The good news of salvation through Jesus Christ</div></foreignObject><path d="M88 486h102" stroke="#d7b77d" stroke-width="5"/><text x="88" y="535" fill="#d6e0df" font-family="Arial,sans-serif" font-size="20" letter-spacing="3">ROOTED IN SCRIPTURE</text><g transform="translate(930 330)" fill="none" stroke="#e8d7b7" stroke-width="7" opacity=".85"><path d="M-115 20Q-55 -8 0 20V170Q-58 140 -115 170Z"/><path d="M0 20Q58 -8 115 20V170Q58 140 0 170Z"/><path d="M0 20V170"/></g><text x="1100" y="540" text-anchor="end" fill="#d7b77d" font-family="Arial,sans-serif" font-size="17">09</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080f20"/><stop offset=".48" stop-color="#172b45"/><stop offset="1" stop-color="#7a4a36"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#fff4cf" stop-opacity=".98"/><stop offset=".2" stop-color="#f4c879" stop-opacity=".55"/><stop offset="1" stop-color="#eaa65c" stop-opacity="0"/></radialGradient>
+ <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f4c77d" stop-opacity=".8"/><stop offset="1" stop-color="#e28c54" stop-opacity="0"/></linearGradient>
+ <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#28364a"/><stop offset="1" stop-color="#080d19"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f6d99d"/><stop offset="1" stop-color="#c78c4e"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="30"/></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
+ <pattern id="grain" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="8" cy="12" r="1" fill="#fff" opacity=".16"/><circle cx="75" cy="34" r=".8" fill="#fff" opacity=".13"/><circle cx="40" cy="88" r=".9" fill="#fff" opacity=".1"/><circle cx="108" cy="104" r=".7" fill="#fff" opacity=".12"/></pattern>
+</defs>
+<!-- cinematic dawn sky -->
+<rect width="1200" height="630" fill="url(#sky)"/>
+<circle cx="894" cy="300" r="210" fill="url(#glow)" filter="url(#blur)"/>
+<circle cx="894" cy="300" r="112" fill="url(#glow)" opacity=".95"/>
+<path d="M700 0L895 300 760 0M820 0L895 300 960 0M1000 0L895 300 1160 0" fill="#f8dca7" opacity=".07"/>
+<path d="M0 380Q190 330 350 378T700 354T1200 365V630H0Z" fill="url(#horizon)" opacity=".35"/>
+<!-- distant mountain silhouettes -->
+<path d="M0 422L130 348 220 392 340 320 465 395 590 340 720 405 850 350 1000 410 1110 350 1200 390V630H0Z" fill="#172437" opacity=".8"/>
+<!-- radiant cross -->
+<ellipse cx="890" cy="300" rx="150" ry="175" fill="#ffd99a" opacity=".14" filter="url(#soft)"/>
+<path d="M887 167h18v112h74v18h-74v132h-18V297h-70v-18h70Z" fill="#fff2d0" opacity=".22" filter="url(#soft)"/>
+<path d="M890 154h18v125h76v18h-76v139h-18V297h-73v-18h73Z" fill="url(#gold)"/>
+<path d="M899 154v282" stroke="#fff8e6" stroke-width="2" opacity=".65"/>
+<!-- hill and foreground -->
+<path d="M0 495Q180 442 335 477T635 467Q780 430 920 468T1200 450V630H0Z" fill="url(#hill)"/>
+<path d="M0 545Q240 480 430 520T790 495Q1020 470 1200 500V630H0Z" fill="#090e19"/>
+<!-- winding path toward cross -->
+<path d="M510 630Q635 565 690 526Q760 487 822 461Q866 443 890 436Q850 490 832 530Q806 579 790 630Z" fill="#b77a50" opacity=".36"/>
+<path d="M657 630Q713 566 765 530Q814 493 862 464" fill="none" stroke="#f3c98a" stroke-width="3" opacity=".35"/>
+<!-- foreground silhouette -->
+<path d="M0 590Q115 550 220 579Q300 600 385 570L460 630H0Z" fill="#070b14"/>
+<rect width="1200" height="630" fill="url(#grain)"/>
+<!-- left typography panel -->
+<path d="M0 0H650Q590 150 650 315T600 630H0Z" fill="#080f1d" opacity=".38"/>
+<path d="M78 105h58" stroke="#e9bd78" stroke-width="4" stroke-linecap="round"/>
+<text x="78" y="145" fill="#e9bd78" font-family="Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="4">BIBLICAL CHRISTIAN</text>
+<text x="75" y="265" fill="#fffaf0" font-family="Georgia,serif" font-size="91" font-weight="bold" letter-spacing="-3">You Need</text>
+<text x="75" y="365" fill="#fffaf0" font-family="Georgia,serif" font-size="105" font-weight="bold" letter-spacing="-4">Jesus.</text>
+<path d="M82 405h86" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+<text x="80" y="458" fill="#f1d8ae" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="2">THE GOOD NEWS</text>
+<text x="80" y="493" fill="#f1d8ae" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="2">THAT CAN SAVE YOU</text>
+<text x="80" y="557" fill="#c5ced8" font-family="Arial,sans-serif" font-size="17" letter-spacing="1.2">SIN. THE CROSS. THE EMPTY TOMB. NEW LIFE.</text>
+<!-- small accent -->
+<circle cx="1090" cy="86" r="3" fill="#f6d99d"/><circle cx="1110" cy="86" r="3" fill="#f6d99d" opacity=".5"/>
+</svg>

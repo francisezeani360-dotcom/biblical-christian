@@ -43,16 +43,52 @@ function openPassage(ref){
  });
 }
 function linkReferences(root){
+ const containers=[...root.querySelectorAll('p,li,h1,h2,h3,h4,h5,h6,blockquote,figcaption,td,th')];
+ const covered=new Set();
+ containers.forEach(container=>{
+  const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+  const nodes=[];let combined='';
+  while(walker.nextNode()){
+   const node=walker.currentNode,parent=node.parentElement;
+   if(!node.nodeValue||!parent)continue;
+   if(parent.closest(excluded)){combined+='\u0000';continue}
+   const begin=combined.length;combined+=node.nodeValue;
+   nodes.push({node,start:begin,end:combined.length});
+  }
+  refPattern.lastIndex=0;const matches=[];let m;
+  while((m=refPattern.exec(combined))){
+   if(combined.slice(m.index,m.index+m[0].length).includes('\u0000'))continue;
+   matches.push({start:m.index,end:m.index+m[0].length,reference:m[0]});
+  }
+  matches.reverse().forEach(item=>{
+   const first=nodes.find(x=>x.start<=item.start&&x.end>item.start);
+   const last=nodes.find(x=>x.start<item.end&&x.end>=item.end);
+   if(!first||!last)return;
+   const range=document.createRange();
+   range.setStart(first.node,item.start-first.start);
+   range.setEnd(last.node,item.end-last.start);
+   const btn=document.createElement('button');btn.type='button';btn.className='scripture-link';
+   btn.setAttribute('aria-label','Read '+item.reference+' in a popup');
+   btn.addEventListener('click',()=>openPassage(item.reference));
+   btn.appendChild(range.extractContents());range.insertNode(btn);
+  });
+  nodes.forEach(x=>covered.add(x.node));
+ });
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(node){
-  if(!node.nodeValue||!node.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+  if(covered.has(node)||!node.nodeValue||!node.nodeValue.trim())return NodeFilter.FILTER_REJECT;
   const parent=node.parentElement;if(!parent||parent.closest(excluded))return NodeFilter.FILTER_REJECT;
-  refPattern.lastIndex=0;
-  return refPattern.test(node.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+  refPattern.lastIndex=0;return refPattern.test(node.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
  }});
  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
- nodes.forEach(node=>{const text=node.nodeValue;refPattern.lastIndex=0;let match,last=0;const frag=document.createDocumentFragment();
-  while((match=refPattern.exec(text))){const reference=match[0];frag.append(document.createTextNode(text.slice(last,match.index)));const btn=document.createElement('button');btn.type='button';btn.className='scripture-link';btn.textContent=reference;btn.setAttribute('aria-label','Read '+reference+' in a popup');btn.addEventListener('click',()=>openPassage(reference));frag.append(btn);last=match.index+reference.length}
-  frag.append(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);
+ nodes.forEach(node=>{
+  const value=node.nodeValue;refPattern.lastIndex=0;let match,last=0;const frag=document.createDocumentFragment();
+  while((match=refPattern.exec(value))){
+   frag.append(document.createTextNode(value.slice(last,match.index)));
+   const reference=match[0],btn=document.createElement('button');btn.type='button';btn.className='scripture-link';
+   btn.textContent=reference;btn.setAttribute('aria-label','Read '+reference+' in a popup');
+   btn.addEventListener('click',()=>openPassage(reference));frag.append(btn);last=match.index+reference.length;
+  }
+  frag.append(document.createTextNode(value.slice(last)));node.parentNode.replaceChild(frag,node);
  });
 }
 function init(){if(!document.body)return;window.__scripturePopup=makeModal();linkReferences(document.body)}

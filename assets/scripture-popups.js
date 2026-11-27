@@ -92,5 +92,6 @@ function linkReferences(root){
  });
 }
 function init(){if(!document.body)return;window.__scripturePopup=makeModal();linkReferences(document.body)}
+const structuredData=document.createElement('script');structuredData.src='/assets/structured-data.js';structuredData.defer=true;document.head.appendChild(structuredData);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

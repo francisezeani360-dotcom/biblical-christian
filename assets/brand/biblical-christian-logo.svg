@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 170" role="img" aria-labelledby="title desc">
+<title id="title">Biblical Christian</title><desc id="desc">An open Bible beneath a cross, with an elegant Biblical Christian wordmark.</desc>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M16 124 Q77 91 139 124 Q200 91 262 124" stroke="#f3eee3" stroke-width="8"/>
+<path d="M20 132 Q78 104 139 137 Q201 104 258 132" stroke="#c7a66a" stroke-width="4"/>
+<path d="M30 141 Q83 119 139 147 Q196 119 248 141" stroke="#f3eee3" stroke-width="3"/>
+<path d="M139 124 L139 150" stroke="#c7a66a" stroke-width="3"/>
+</g>
+<g font-family="Georgia, 'Times New Roman', serif" font-weight="bold" fill="#f3eee3">
+<text x="12" y="113" font-size="111">B</text><text x="168" y="113" font-size="111">C</text>
+</g>
+<path d="M139 9 V129 M105 43 H173" stroke="#c7a66a" stroke-width="13" stroke-linecap="square"/>
+<path d="M139 9 V129 M105 43 H173" stroke="#e4c88e" stroke-width="3" opacity=".7"/>
+<path d="M300 30 H625 M300 146 H625" stroke="#c7a66a" stroke-width="2"/>
+<text x="300" y="91" font-family="Georgia, 'Times New Roman', serif" font-size="61" font-weight="bold" letter-spacing="2" fill="#f3eee3">BIBLICAL</text>
+<text x="300" y="137" font-family="Georgia, 'Times New Roman', serif" font-size="43" font-weight="bold" letter-spacing="4" fill="#c7a66a">CHRISTIAN</text>
+</svg>

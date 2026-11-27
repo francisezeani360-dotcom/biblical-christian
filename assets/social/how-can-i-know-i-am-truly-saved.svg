@@ -1,1 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071b2b"/><stop offset="1" stop-color="#17464b"/></linearGradient></defs><rect width="1200" height="630" fill="url(#bg)"/><rect x="48" y="44" width="1104" height="542" rx="18" fill="none" stroke="#bd9b67" stroke-opacity=".65" stroke-width="2"/><path d="M88 112h82" stroke="#d7b77d" stroke-width="7"/><text x="88" y="164" fill="#d7b77d" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="4">BIBLICAL CHRISTIAN</text><text x="88" y="282" fill="#fffdf6" font-family="Georgia,serif" font-size="64" font-weight="bold">How Can I Know I Am Truly Saved?</text><foreignObject x="88" y="322" width="760" height="120"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,sans-serif;color:#c9d8d8;font-size:29px;line-height:1.35">The grounds and assurance of genuine salvation</div></foreignObject><path d="M88 486h102" stroke="#d7b77d" stroke-width="5"/><text x="88" y="535" fill="#d6e0df" font-family="Arial,sans-serif" font-size="20" letter-spacing="3">ROOTED IN SCRIPTURE</text><g transform="translate(930 330)" fill="none" stroke="#e8d7b7" stroke-width="7" opacity=".85"><path d="M-115 20Q-55 -8 0 20V170Q-58 140 -115 170Z"/><path d="M0 20Q58 -8 115 20V170Q58 140 0 170Z"/><path d="M0 20V170"/></g><text x="1100" y="540" text-anchor="end" fill="#d7b77d" font-family="Arial,sans-serif" font-size="17">13</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#101d32"/><stop offset=".55" stop-color="#42566a"/><stop offset="1" stop-color="#d5a779"/></linearGradient>
+<linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#31495b"/><stop offset="1" stop-color="#101d2c"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe8b6" stop-opacity=".55"/><stop offset="1" stop-color="#ffe8b6" stop-opacity="0"/></linearGradient>
+<radialGradient id="sun"><stop stop-color="#fff2d4"/><stop offset="1" stop-color="#f1c18b" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#sky)"/>
+<circle cx="870" cy="275" r="180" fill="url(#sun)"/>
+<path d="M0 380Q140 330 270 380T520 370T780 380T1200 350V630H0Z" fill="url(#sea)"/>
+<path d="M0 455Q160 410 310 460T620 445T930 460T1200 425" fill="none" stroke="#d7c4aa" stroke-opacity=".25" stroke-width="5"/>
+<path d="M0 520Q170 485 340 525T680 510T1020 520T1200 500" fill="none" stroke="#d7c4aa" stroke-opacity=".18" stroke-width="4"/>
+<!-- rugged headland -->
+<path d="M700 630L760 520 820 475 860 425 915 398 980 435 1030 490 1100 530 1200 550V630Z" fill="#172538"/>
+<path d="M790 630L850 520 885 470 915 425 946 448 960 500 1010 550V630Z" fill="#29394b"/>
+<!-- lighthouse beam -->
+<path d="M910 220L1200 95V390L910 250Z" fill="url(#beam)"/>
+<path d="M910 230L1200 160M910 240L1200 335" stroke="#ffe9c2" stroke-opacity=".22" stroke-width="3"/>
+<!-- lighthouse tower -->
+<path d="M880 430L895 260H955L970 430Z" fill="#e5e0d4"/>
+<path d="M895 260H955L962 290H889Z" fill="#9a6d4e"/>
+<rect x="890" y="224" width="70" height="42" rx="3" fill="#202c3a" stroke="#e6d8bc" stroke-width="5"/>
+<rect x="900" y="233" width="50" height="24" fill="#ffe7b0"/>
+<path d="M884 224L925 195 966 224Z" fill="#a85f43"/>
+<path d="M915 195V180H935V195" fill="#a85f43"/>
+<path d="M904 302H946M900 350H950M896 398H958" stroke="#9b7659" stroke-width="8"/>
+<!-- foreground -->
+<path d="M0 585Q180 550 340 590T700 580L760 630H0Z" fill="#101a29"/>
+<rect x="52" y="48" width="675" height="530" rx="10" fill="#0b1728" opacity=".72"/>
+<path d="M92 103H158" stroke="#d9b98b" stroke-width="5"/>
+<text x="92" y="144" fill="#d9b98b" font-family="Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="5">BIBLICAL CHRISTIAN</text>
+<text x="88" y="263" fill="#fffaf1" font-family="Georgia,serif" font-size="65">How Can I Know</text>
+<text x="88" y="340" fill="#fffaf1" font-family="Georgia,serif" font-size="65">I Am Truly Saved?</text>
+<path d="M92 382H188" stroke="#d9b98b" stroke-width="4"/>
+<text x="92" y="431" fill="#e5d9ca" font-family="Arial,sans-serif" font-size="22" letter-spacing="1.5">CHRIST'S PROMISES. GENUINE FAITH.</text>
+<text x="92" y="465" fill="#e5d9ca" font-family="Arial,sans-serif" font-size="22" letter-spacing="1.5">THE EVIDENCE OF NEW LIFE.</text>
+<text x="92" y="535" fill="#d9b98b" font-family="Arial,sans-serif" font-size="15" letter-spacing="4">FINDING ASSURANCE IN CHRIST</text>
+</svg>

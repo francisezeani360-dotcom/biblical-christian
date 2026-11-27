@@ -1,0 +1,43 @@
+name: Generate WhatsApp-compatible social previews
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/social/**.svg'
+      - '.github/workflows/social-previews.yml'
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install cairosvg
+      - name: Convert previews and update metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, cairosvg
+          root = Path('.')
+          for svg in (root/'assets/social').glob('*.svg'):
+              png = svg.with_suffix('.png')
+              cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=1200, output_height=630)
+          for html in root.rglob('*.html'):
+              if 'node_modules' in html.parts:
+                  continue
+              text = html.read_text(encoding='utf-8')
+              updated = re.sub(r'(https://biblical-christian\\.onrender\\.com/assets/social/[^"\\s<>]+)\\.svg', r'\\1.png', text)
+              updated = updated.replace('image/svg+xml', 'image/png')
+              if updated != text:
+                  html.write_text(updated, encoding='utf-8')
+          PY
+      - name: Commit generated PNGs and metadata
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add assets/social/*.png '**/*.html' '*.html'
+          git diff --cached --quiet || git commit -m "Generate PNG social previews for sharing"
+          git push

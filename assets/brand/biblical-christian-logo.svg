@@ -1,18 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 190" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 230" role="img" aria-labelledby="title desc">
 <title id="title">Biblical Christian</title>
-<desc id="desc">The BC monogram with a gold cross rising between the letters above an open Bible, beside the Biblical Christian wordmark.</desc>
-<defs>
-  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0c58e"/><stop offset=".52" stop-color="#c7a66a"/><stop offset="1" stop-color="#a9854b"/></linearGradient>
-</defs>
-<g>
-  <text x="12" y="137" font-family="Georgia,'Times New Roman',serif" font-size="132" font-weight="700" letter-spacing="-12" fill="#f3eee3">B</text>
-  <text x="103" y="137" font-family="Georgia,'Times New Roman',serif" font-size="132" font-weight="700" letter-spacing="-8" fill="#f3eee3">C</text>
-  <path d="M116 13 V119 M83 48 H149" fill="none" stroke="url(#gold)" stroke-width="11" stroke-linecap="square"/>
-  <path d="M13 145 Q67 120 119 146 Q171 120 225 145" fill="none" stroke="#f3eee3" stroke-width="7" stroke-linecap="round"/>
-  <path d="M13 155 Q67 132 119 158 Q171 132 225 155" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M119 146 V166" fill="none" stroke="url(#gold)" stroke-width="3"/>
-</g>
-<path d="M270 25 H780 M270 163 H780" fill="none" stroke="url(#gold)" stroke-width="2"/>
-<text x="270" y="105" font-family="Georgia,'Times New Roman',serif" font-size="70" font-weight="700" letter-spacing="2" fill="#f3eee3">BIBLICAL</text>
-<text x="270" y="148" font-family="Georgia,'Times New Roman',serif" font-size="39" font-weight="700" letter-spacing="6.5" fill="url(#gold)">CHRISTIAN</text>
+<desc id="desc">A refined BC monogram with a gold cross and open Bible, paired with the Biblical Christian wordmark.</desc>
+<defs><linearGradient id="gold" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#e1c994"/><stop offset="0.55" stop-color="#c7a66a"/><stop offset="1" stop-color="#a98750"/></linearGradient></defs>
+<g fill="#f3eee3" font-family="Georgia, 'Times New Roman', serif" font-weight="700"><text x="8" y="151" font-size="145" letter-spacing="-8">B</text><text x="137" y="151" font-size="145" letter-spacing="-7">C</text></g>
+<path d="M119 18 V157 M91 58 H147" fill="none" stroke="url(#gold)" stroke-width="12" stroke-linecap="square"/>
+<path d="M14 166 C48 147 83 153 119 173 C155 153 190 147 224 166" fill="none" stroke="#f3eee3" stroke-width="7" stroke-linecap="round"/>
+<path d="M14 179 C49 160 84 166 119 186 C154 166 189 160 224 179" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M119 173 V190" fill="none" stroke="url(#gold)" stroke-width="3"/>
+<path d="M280 35 H940 M280 192 H940" stroke="url(#gold)" stroke-width="2"/>
+<text x="280" y="124" fill="#f3eee3" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="1.5">BIBLICAL</text>
+<text x="283" y="174" fill="url(#gold)" font-family="Georgia, 'Times New Roman', serif" font-size="43" font-weight="700" letter-spacing="7.5">CHRISTIAN</text>
 </svg>

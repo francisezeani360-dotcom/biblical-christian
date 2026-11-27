@@ -29,7 +29,7 @@ jobs:
               if 'node_modules' in html.parts:
                   continue
               text = html.read_text(encoding='utf-8')
-              updated = re.sub(r'(https://biblical-christian\\.onrender\\.com/assets/social/[^"\\s<>]+)\\.svg', r'\\1.png', text)
+              updated = re.sub(r'(https://biblical-christian\.onrender\.com/assets/social/[^"\s<>]+)\.svg', r'\1.png', text)
               updated = updated.replace('image/svg+xml', 'image/png')
               if updated != text:
                   html.write_text(updated, encoding='utf-8')

@@ -1,1 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071b2b"/><stop offset="1" stop-color="#17464b"/></linearGradient></defs><rect width="1200" height="630" fill="url(#bg)"/><rect x="48" y="44" width="1104" height="542" rx="18" fill="none" stroke="#bd9b67" stroke-opacity=".65" stroke-width="2"/><path d="M88 112h82" stroke="#d7b77d" stroke-width="7"/><text x="88" y="164" fill="#d7b77d" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="4">BIBLICAL CHRISTIAN</text><text x="88" y="282" fill="#fffdf6" font-family="Georgia,serif" font-size="60" font-weight="bold">What Is Repentance?</text><foreignObject x="88" y="322" width="760" height="120"><div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,sans-serif;color:#c9d8d8;font-size:29px;line-height:1.35">Understanding biblical repentance and turning to God</div></foreignObject><path d="M88 486h102" stroke="#d7b77d" stroke-width="5"/><text x="88" y="535" fill="#d6e0df" font-family="Arial,sans-serif" font-size="20" letter-spacing="3">ROOTED IN SCRIPTURE</text><g transform="translate(930 330)" fill="none" stroke="#e8d7b7" stroke-width="7"><path d="M-115 20Q-55 -8 0 20V170Q-58 140 -115 170Z"/><path d="M0 20Q58 -8 115 20V170Q58 140 0 170Z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+ <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#241c25"/><stop offset=".52" stop-color="#4c302d"/><stop offset="1" stop-color="#a56b45"/></linearGradient>
+ <linearGradient id="road" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171a23"/><stop offset="1" stop-color="#34313a"/></linearGradient>
+ <linearGradient id="newway" x1="0" y1="1" x2="0.8" y2="0"><stop stop-color="#d18b4e"/><stop offset="1" stop-color="#fff0c9"/></linearGradient>
+ <radialGradient id="dawn"><stop stop-color="#fff4d5" stop-opacity=".95"/><stop offset="1" stop-color="#f7c27e" stop-opacity="0"/></radialGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1200" height="630" fill="url(#ground)"/>
+<!-- dramatic dawn on the right -->
+<circle cx="920" cy="195" r="260" fill="url(#dawn)" filter="url(#soft)"/>
+<path d="M0 450L1200 355V630H0Z" fill="#1d2029"/>
+<!-- old road running into darkness -->
+<path d="M0 630L0 485 300 390 560 390 640 470 500 630Z" fill="url(#road)"/>
+<path d="M0 518L365 407 555 410" fill="none" stroke="#8c7770" stroke-opacity=".35" stroke-width="5" stroke-dasharray="18 20"/>
+<!-- new road: sweeping hard turn toward light -->
+<path d="M510 630Q580 500 600 425Q630 345 720 298Q820 240 1040 210L1200 190V390Q970 400 835 435Q720 470 690 630Z" fill="url(#newway)"/>
+<path d="M595 630Q655 485 675 420Q710 340 820 300Q925 260 1200 250" fill="none" stroke="#fff3d7" stroke-opacity=".48" stroke-width="7"/>
+<!-- broken chain links on abandoned road -->
+<g fill="none" stroke="#bd9a78" stroke-width="13" stroke-linecap="round" opacity=".78">
+ <path d="M150 505c-28-22-12-65 22-68 25-3 42 17 37 40"/>
+ <path d="M240 468c28 22 12 65-22 68-25 3-42-17-37-40"/>
+ <path d="M180 470l48 33" stroke-width="8"/>
+</g>
+<!-- lone figure at the turning point -->
+<ellipse cx="626" cy="411" rx="52" ry="18" fill="#1b1c25" opacity=".3"/>
+<circle cx="620" cy="330" r="22" fill="#171b25"/>
+<path d="M600 354Q620 340 642 355L658 416Q628 433 594 414Z" fill="#171b25"/>
+<path d="M603 409L580 478 603 482 626 425M641 410L660 474 682 469 656 402" fill="#171b25"/>
+<path d="M600 366L566 413 580 425 615 389M640 366L670 401 684 390 652 353" fill="#171b25"/>
+<!-- directional footprints leading away from darkness -->
+<g fill="#fff0d1" opacity=".7">
+ <ellipse cx="470" cy="565" rx="8" ry="16" transform="rotate(-25 470 565)"/>
+ <ellipse cx="510" cy="535" rx="8" ry="16" transform="rotate(20 510 535)"/>
+ <ellipse cx="540" cy="495" rx="8" ry="16" transform="rotate(-18 540 495)"/>
+</g>
+<!-- typography panel -->
+<path d="M48 48H575V580H48Z" fill="#171821" opacity=".9"/>
+<path d="M88 105H153" stroke="#e5b879" stroke-width="5"/>
+<text x="88" y="147" fill="#e5b879" font-family="Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="4">BIBLICAL CHRISTIAN</text>
+<text x="84" y="284" fill="#fff8eb" font-family="Georgia,serif" font-size="78">What Is</text>
+<text x="84" y="375" fill="#fff8eb" font-family="Georgia,serif" font-size="78">Repentance?</text>
+<path d="M90 416H182" stroke="#e5b879" stroke-width="4"/>
+<text x="88" y="470" fill="#e8d7c4" font-family="Arial,sans-serif" font-size="20" letter-spacing="1.5">A REAL TURNING:</text>
+<text x="88" y="505" fill="#e8d7c4" font-family="Arial,sans-serif" font-size="20" letter-spacing="1.5">FROM SIN TO GOD.</text>
+<text x="88" y="548" fill="#e5b879" font-family="Arial,sans-serif" font-size="14" letter-spacing="3">GRACE THAT CHANGES OUR DIRECTION</text>
+</svg>

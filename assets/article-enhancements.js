@@ -29,4 +29,26 @@ function addArticleNavigation(){
  const script=document.createElement('script');script.src='/assets/library.js';script.onload=load;document.head.append(script);
 }
 addArticleNavigation();
+
+function addShareTools(){
+ const main=document.querySelector('main');
+ if(!main||document.querySelector('.article-share'))return;
+ const title=document.querySelector('h1')?.textContent?.trim()||document.title;
+ const url=location.href.split('#')[0];
+ const encodedUrl=encodeURIComponent(url),encodedTitle=encodeURIComponent(title);
+ const section=document.createElement('section');section.className='article-share';section.setAttribute('aria-label','Share this article');
+ const heading=document.createElement('strong');heading.textContent='Found this helpful? Share it.';
+ const copy=document.createElement('button');copy.type='button';copy.textContent='Copy link';
+ const native=document.createElement('button');native.type='button';native.textContent='Share';
+ const whatsapp=document.createElement('a');whatsapp.href='https://wa.me/?text='+encodedTitle+'%20'+encodedUrl;whatsapp.target='_blank';whatsapp.rel='noopener noreferrer';whatsapp.textContent='WhatsApp';
+ const facebook=document.createElement('a');facebook.href='https://www.facebook.com/sharer/sharer.php?u='+encodedUrl;facebook.target='_blank';facebook.rel='noopener noreferrer';facebook.textContent='Facebook';
+ const status=document.createElement('span');status.className='share-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+ copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);status.textContent='Link copied.'}catch(e){const field=document.createElement('textarea');field.value=url;field.setAttribute('readonly','');field.style.position='absolute';field.style.left='-9999px';document.body.append(field);field.select();const ok=document.execCommand('copy');field.remove();status.textContent=ok?'Link copied.':'Copy unavailable — use your browser address bar.'}});
+ native.addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title,text:'Read this article from Biblical Christian:',url})}catch(e){if(e.name!=='AbortError')status.textContent='Sharing was not completed.'}}else{copy.click()}});
+ section.append(heading,native,copy,whatsapp,facebook,status);
+ const refs=main.querySelector('.refs');
+ if(refs)refs.insertAdjacentElement('afterend',section);else main.append(section);
+ const style=document.createElement('style');style.textContent='.article-share{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:34px 0 22px;padding:19px 21px;background:#f0ece5;border:1px solid #e1d9cc;border-radius:10px;font:13px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif}.article-share strong{width:100%;font:600 16px Georgia,serif;color:#253746}.article-share button,.article-share a{appearance:none;border:1px solid #cfc5b5;border-radius:5px;background:#fff;color:#344454;padding:8px 12px;font:600 12px system-ui,sans-serif;text-decoration:none;cursor:pointer}.article-share button:hover,.article-share a:hover{border-color:#93663e;color:#80532e}.article-share button:focus-visible,.article-share a:focus-visible{outline:2px solid #bd8b56;outline-offset:3px}.share-status{font-size:12px;color:#536273}@media(max-width:480px){.article-share{gap:8px}.article-share button,.article-share a{padding:8px 10px}}';document.head.append(style);
+}
+addShareTools();
 })();

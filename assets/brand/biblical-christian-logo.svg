@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 190" role="img" aria-labelledby="title desc">
 <title id="title">Biblical Christian</title><desc id="desc">The BTC gold monogram with a cross forming the T and an open Bible beneath, matching the website watermark, beside the Biblical Christian wordmark.</desc>
 <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2c37e"/><stop offset=".55" stop-color="#c7a04f"/><stop offset="1" stop-color="#a77a32"/></linearGradient></defs>
-<g fill="url(#gold)" font-family="Georgia, 'Times New Roman', serif"><text x="8" y="111" font-size="104" letter-spacing="-7">B</text><text x="126" y="111" font-size="104" letter-spacing="-7">C</text></g>
+<g fill="url(#gold)" font-family="Georgia, 'Times New Roman', serif"><text x="8" y="111" font-size="104" letter-spacing="-7">B</text><text x="146" y="111" font-size="104" letter-spacing="-7">C</text></g>
 <path d="M111 8 V119 M88 40 H134" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="square"/>
 <path d="M8 137 C43 115 78 121 111 145 C144 121 179 115 214 137 C179 130 145 136 111 157 C77 136 43 130 8 137Z" fill="none" stroke="url(#gold)" stroke-width="3.5" stroke-linejoin="round"/>
 <path d="M8 149 C43 127 78 133 111 157 C144 133 179 127 214 149" fill="none" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/><path d="M111 145 V165" stroke="url(#gold)" stroke-width="3"/>

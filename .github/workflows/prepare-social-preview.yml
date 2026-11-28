@@ -1,0 +1,30 @@
+name: Prepare social preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - social-preview.png
+      - .github/workflows/prepare-social-preview.yml
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create optimized JPEG preview
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          magick social-preview.png -auto-orient -resize '1200x630^' -gravity center -extent 1200x630 -strip -quality 82 social-preview.jpg
+      - name: Commit JPEG if changed
+        run: |
+          if git diff --quiet -- social-preview.jpg; then
+            echo "JPEG preview is already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add social-preview.jpg
+          git commit -m "Generate optimized JPEG social preview"
+          git push

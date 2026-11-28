@@ -19,7 +19,7 @@ jobs:
           magick social-preview.png -auto-orient -resize '1200x630^' -gravity center -extent 1200x630 -strip -quality 82 social-preview.jpg
       - name: Commit JPEG if changed
         run: |
-          if git diff --quiet -- social-preview.jpg; then
+          if git ls-files --error-unmatch social-preview.jpg >/dev/null 2>&1 && git diff --quiet -- social-preview.jpg; then
             echo "JPEG preview is already current"
             exit 0
           fi
